@@ -1,0 +1,24 @@
+version: '2.2'
+# for references see: https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
+services:
+  psql:
+    image: library/postgres:13.4
+    container_name: psql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: local
+      POSTGRES_PASSWORD: local
+      POSTGRES_DB: playground
+    volumes:
+      - data01:/var/lib/postgres
+    networks:
+      - default
+
+volumes:
+  data01:
+    driver: local
+
+networks:
+  default:
+    driver: bridge
