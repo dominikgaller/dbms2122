@@ -1,3 +1,4 @@
+BEGIN;
 -- public.citylocalname definition
 
 -- Drop table
@@ -35,7 +36,7 @@ CREATE TABLE public.cityothername (
 -- DROP TABLE public.continent;
 
 CREATE TABLE public.continent (
-	name varchar(20) NOT NULL,
+	"name" varchar(20) NOT NULL,
 	area numeric(10) NULL,
 	CONSTRAINT continentkey PRIMARY KEY (name)
 );
@@ -74,7 +75,7 @@ CREATE TABLE public.countryothername (
 -- DROP TABLE public.desert;
 
 CREATE TABLE public.desert (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	area numeric NULL,
 	coordinates geocoord NULL,
 	CONSTRAINT descoord CHECK ((((coordinates).latitude >= ('-90'::integer)::numeric) AND ((coordinates).latitude <= (90)::numeric) AND ((coordinates).longitude > ('-180'::integer)::numeric) AND ((coordinates).longitude <= (180)::numeric))),
@@ -89,7 +90,7 @@ CREATE TABLE public.desert (
 -- DROP TABLE public.island;
 
 CREATE TABLE public.island (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	islands varchar(50) NULL,
 	area numeric NULL,
 	elevation numeric NULL,
@@ -108,7 +109,7 @@ CREATE TABLE public.island (
 -- DROP TABLE public.mountain;
 
 CREATE TABLE public.mountain (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	mountains varchar(50) NULL,
 	elevation numeric NULL,
 	"type" varchar(10) NULL,
@@ -125,7 +126,7 @@ CREATE TABLE public.mountain (
 -- DROP TABLE public.sea;
 
 CREATE TABLE public.sea (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	area numeric NULL,
 	"depth" numeric NULL,
 	CONSTRAINT seaar CHECK ((area >= (0)::numeric)),
@@ -145,8 +146,8 @@ CREATE TABLE public.islandin (
 	sea varchar(50) NULL,
 	lake varchar(50) NULL,
 	river varchar(50) NULL,
-	CONSTRAINT fk_insea FOREIGN KEY (sea) REFERENCES public.sea(name) DEFERRABLE INITIALLY DEFERRED,
-	CONSTRAINT fk_islandin FOREIGN KEY (island) REFERENCES public.island(name) DEFERRABLE INITIALLY DEFERRED
+	CONSTRAINT fk_insea FOREIGN KEY (sea) REFERENCES public.sea("name") DEFERRABLE INITIALLY DEFERRED,
+	CONSTRAINT fk_islandin FOREIGN KEY (island) REFERENCES public.island("name") DEFERRABLE INITIALLY DEFERRED
 );
 
 
@@ -160,8 +161,8 @@ CREATE TABLE public.mergeswith (
 	sea1 varchar(50) NOT NULL,
 	sea2 varchar(50) NOT NULL,
 	CONSTRAINT mergeswithkey PRIMARY KEY (sea1, sea2),
-	CONSTRAINT fk_sea1 FOREIGN KEY (sea1) REFERENCES public.sea(name) DEFERRABLE INITIALLY DEFERRED,
-	CONSTRAINT fk_sea2 FOREIGN KEY (sea2) REFERENCES public.sea(name) DEFERRABLE INITIALLY DEFERRED
+	CONSTRAINT fk_sea1 FOREIGN KEY (sea1) REFERENCES public.sea("name") DEFERRABLE INITIALLY DEFERRED,
+	CONSTRAINT fk_sea2 FOREIGN KEY (sea2) REFERENCES public.sea("name") DEFERRABLE INITIALLY DEFERRED
 );
 
 
@@ -175,7 +176,7 @@ CREATE TABLE public.mountainonisland (
 	mountain varchar(50) NOT NULL,
 	island varchar(50) NOT NULL,
 	CONSTRAINT mountainislkey PRIMARY KEY (mountain, island),
-	CONSTRAINT fk_mtimountain FOREIGN KEY (mountain) REFERENCES public.mountain(name) DEFERRABLE INITIALLY DEFERRED
+	CONSTRAINT fk_mtimountain FOREIGN KEY (mountain) REFERENCES public.mountain("name") DEFERRABLE INITIALLY DEFERRED
 );
 
 
@@ -187,7 +188,7 @@ CREATE TABLE public.mountainonisland (
 
 CREATE TABLE public.airport (
 	iatacode varchar(3) NOT NULL,
-	name varchar(100) NULL,
+	"name" varchar(100) NULL,
 	country varchar(4) NULL,
 	city varchar(50) NULL,
 	province varchar(50) NULL,
@@ -224,7 +225,7 @@ CREATE TABLE public.borders (
 -- DROP TABLE public.city;
 
 CREATE TABLE public.city (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	country varchar(4) NOT NULL,
 	province varchar(50) NOT NULL,
 	population numeric NULL,
@@ -263,7 +264,7 @@ CREATE TABLE public.citypops (
 -- DROP TABLE public.country;
 
 CREATE TABLE public.country (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	code varchar(4) NOT NULL,
 	capital varchar(50) NULL,
 	province varchar(50) NULL,
@@ -334,7 +335,7 @@ CREATE TABLE public.encompasses (
 
 CREATE TABLE public.ethnicgroup (
 	country varchar(4) NOT NULL,
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	percentage numeric NULL,
 	CONSTRAINT ethnickey PRIMARY KEY (name, country),
 	CONSTRAINT ethnicpercent CHECK (((percentage > (0)::numeric) AND (percentage <= (100)::numeric)))
@@ -474,7 +475,7 @@ CREATE TABLE public.ismember (
 -- DROP TABLE public.lake;
 
 CREATE TABLE public.lake (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	river varchar(50) NULL,
 	area numeric NULL,
 	elevation numeric NULL,
@@ -511,7 +512,7 @@ CREATE TABLE public.lakeonisland (
 
 CREATE TABLE public."language" (
 	country varchar(4) NOT NULL,
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	percentage numeric NULL,
 	CONSTRAINT languagekey PRIMARY KEY (name, country),
 	CONSTRAINT languagepercent CHECK (((percentage > (0)::numeric) AND (percentage <= (100)::numeric)))
@@ -557,7 +558,7 @@ CREATE TABLE public.locatedon (
 
 CREATE TABLE public.organization (
 	abbreviation varchar(12) NOT NULL,
-	name varchar(100) NOT NULL,
+	"name" varchar(100) NOT NULL,
 	city varchar(50) NULL,
 	country varchar(4) NULL,
 	province varchar(50) NULL,
@@ -604,7 +605,7 @@ CREATE TABLE public.population (
 -- DROP TABLE public.province;
 
 CREATE TABLE public.province (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	country varchar(4) NOT NULL,
 	population numeric NULL,
 	area numeric NULL,
@@ -669,7 +670,7 @@ CREATE TABLE public.provpops (
 
 CREATE TABLE public.religion (
 	country varchar(4) NOT NULL,
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	percentage numeric NULL,
 	CONSTRAINT religionkey PRIMARY KEY (name, country),
 	CONSTRAINT religionpercent CHECK (((percentage > (0)::numeric) AND (percentage <= (100)::numeric)))
@@ -683,7 +684,7 @@ CREATE TABLE public.religion (
 -- DROP TABLE public.river;
 
 CREATE TABLE public.river (
-	name varchar(50) NOT NULL,
+	"name" varchar(50) NOT NULL,
 	river varchar(50) NULL,
 	lake varchar(50) NULL,
 	sea varchar(50) NULL,
@@ -728,195 +729,4 @@ CREATE TABLE public.riverthrough (
 	CONSTRAINT rthroughkey PRIMARY KEY (river, lake)
 );
 
-
--- public.airport foreign keys
-
-ALTER TABLE public.airport ADD CONSTRAINT fk_airportcity FOREIGN KEY (city,country,province) REFERENCES public.city(name,country,province);
-ALTER TABLE public.airport ADD CONSTRAINT fk_airportisland FOREIGN KEY (island) REFERENCES public.island(name);
-
-
--- public.borders foreign keys
-
-ALTER TABLE public.borders ADD CONSTRAINT fk_border1 FOREIGN KEY (country1) REFERENCES public.country(code);
-ALTER TABLE public.borders ADD CONSTRAINT fk_border2 FOREIGN KEY (country2) REFERENCES public.country(code);
-
-
--- public.city foreign keys
-
-ALTER TABLE public.city ADD CONSTRAINT fk_cityprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.citypops foreign keys
-
-ALTER TABLE public.citypops ADD CONSTRAINT fk_citypops FOREIGN KEY (city,country,province) REFERENCES public.city(name,country,province);
-
-
--- public.country foreign keys
-
-ALTER TABLE public.country ADD CONSTRAINT fk_capital FOREIGN KEY (capital,code,province) REFERENCES public.city(name,country,province);
-
-
--- public.countrypops foreign keys
-
-ALTER TABLE public.countrypops ADD CONSTRAINT fk_popscountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.economy foreign keys
-
-ALTER TABLE public.economy ADD CONSTRAINT fk_ecoscountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.encompasses foreign keys
-
-ALTER TABLE public.encompasses ADD CONSTRAINT fk_enccontinent FOREIGN KEY (continent) REFERENCES public.continent(name);
-ALTER TABLE public.encompasses ADD CONSTRAINT fk_enccountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.ethnicgroup foreign keys
-
-ALTER TABLE public.ethnicgroup ADD CONSTRAINT fk_popcountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.geo_desert foreign keys
-
-ALTER TABLE public.geo_desert ADD CONSTRAINT fk_desert FOREIGN KEY (desert) REFERENCES public.desert(name);
-ALTER TABLE public.geo_desert ADD CONSTRAINT fk_desertprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.geo_estuary foreign keys
-
-ALTER TABLE public.geo_estuary ADD CONSTRAINT fk_gestprovince FOREIGN KEY (country,province) REFERENCES <?>();
-ALTER TABLE public.geo_estuary ADD CONSTRAINT fk_gestriver FOREIGN KEY (river) REFERENCES public.river(name);
-
-
--- public.geo_island foreign keys
-
-ALTER TABLE public.geo_island ADD CONSTRAINT fk_geoisland FOREIGN KEY (island) REFERENCES public.island(name);
-ALTER TABLE public.geo_island ADD CONSTRAINT fk_islandprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.geo_lake foreign keys
-
-ALTER TABLE public.geo_lake ADD CONSTRAINT fk_geolake FOREIGN KEY (lake) REFERENCES public.lake(name);
-ALTER TABLE public.geo_lake ADD CONSTRAINT fk_lakeprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.geo_mountain foreign keys
-
-ALTER TABLE public.geo_mountain ADD CONSTRAINT fk_geomountain FOREIGN KEY (mountain) REFERENCES public.mountain(name);
-ALTER TABLE public.geo_mountain ADD CONSTRAINT fk_mountainprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.geo_river foreign keys
-
-ALTER TABLE public.geo_river ADD CONSTRAINT fk_georiver FOREIGN KEY (river) REFERENCES public.river(name);
-ALTER TABLE public.geo_river ADD CONSTRAINT fk_griverprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.geo_sea foreign keys
-
-ALTER TABLE public.geo_sea ADD CONSTRAINT fk_geosea FOREIGN KEY (sea) REFERENCES public.sea(name);
-ALTER TABLE public.geo_sea ADD CONSTRAINT fk_seaprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.geo_source foreign keys
-
-ALTER TABLE public.geo_source ADD CONSTRAINT fk_gsrcprovince FOREIGN KEY (country,province) REFERENCES <?>();
-ALTER TABLE public.geo_source ADD CONSTRAINT fk_gsrcriver FOREIGN KEY (river) REFERENCES public.river(name);
-
-
--- public.ismember foreign keys
-
-ALTER TABLE public.ismember ADD CONSTRAINT fk_country FOREIGN KEY (country) REFERENCES public.country(code);
-ALTER TABLE public.ismember ADD CONSTRAINT fk_ismember FOREIGN KEY (organization) REFERENCES public.organization(abbreviation);
-
-
--- public.lake foreign keys
-
-ALTER TABLE public.lake ADD CONSTRAINT fk_lakeriver FOREIGN KEY (river) REFERENCES public.river(name);
-
-
--- public.lakeonisland foreign keys
-
-ALTER TABLE public.lakeonisland ADD CONSTRAINT fk_islandlake FOREIGN KEY (lake) REFERENCES public.lake(name);
-ALTER TABLE public.lakeonisland ADD CONSTRAINT fk_lakeoisland FOREIGN KEY (island) REFERENCES public.island(name);
-
-
--- public."language" foreign keys
-
-ALTER TABLE public."language" ADD CONSTRAINT fk_langcountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.located foreign keys
-
-ALTER TABLE public.located ADD CONSTRAINT fk_locatedcity FOREIGN KEY (city,country,province) REFERENCES public.city(name,country,province);
-ALTER TABLE public.located ADD CONSTRAINT fk_loclake FOREIGN KEY (lake) REFERENCES public.lake(name);
-ALTER TABLE public.located ADD CONSTRAINT fk_locriver FOREIGN KEY (river) REFERENCES public.river(name);
-ALTER TABLE public.located ADD CONSTRAINT fk_locsea FOREIGN KEY (sea) REFERENCES public.sea(name);
-
-
--- public.locatedon foreign keys
-
-ALTER TABLE public.locatedon ADD CONSTRAINT fk_locatedcityon FOREIGN KEY (city,country,province) REFERENCES public.city(name,country,province);
-ALTER TABLE public.locatedon ADD CONSTRAINT fk_onisland FOREIGN KEY (island) REFERENCES public.island(name);
-
-
--- public.organization foreign keys
-
-ALTER TABLE public.organization ADD CONSTRAINT fk_capital FOREIGN KEY (city,country,province) REFERENCES public.city(name,country,province);
-
-
--- public.politics foreign keys
-
-ALTER TABLE public.politics ADD CONSTRAINT fk_polscountry1 FOREIGN KEY (country) REFERENCES public.country(code);
-ALTER TABLE public.politics ADD CONSTRAINT fk_polscountry2 FOREIGN KEY (dependent) REFERENCES public.country(code);
-
-
--- public.population foreign keys
-
-ALTER TABLE public.population ADD CONSTRAINT fk_popcountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.province foreign keys
-
-ALTER TABLE public.province ADD CONSTRAINT fk_citycapital FOREIGN KEY (capital,country,capprov) REFERENCES public.city(name,country,province);
-ALTER TABLE public.province ADD CONSTRAINT fk_provcountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.provincelocalname foreign keys
-
-ALTER TABLE public.provincelocalname ADD CONSTRAINT fk_provincelocal FOREIGN KEY (province,country) REFERENCES public.province(name,country);
-
-
--- public.provinceothername foreign keys
-
-ALTER TABLE public.provinceothername ADD CONSTRAINT fk_provinceother FOREIGN KEY (province,country) REFERENCES public.province(name,country);
-
-
--- public.provpops foreign keys
-
-ALTER TABLE public.provpops ADD CONSTRAINT fk_ppopsprovince FOREIGN KEY (country,province) REFERENCES <?>();
-
-
--- public.religion foreign keys
-
-ALTER TABLE public.religion ADD CONSTRAINT fk_popcountry FOREIGN KEY (country) REFERENCES public.country(code);
-
-
--- public.river foreign keys
-
-ALTER TABLE public.river ADD CONSTRAINT fk_riverlake FOREIGN KEY (lake) REFERENCES public.lake(name);
-ALTER TABLE public.river ADD CONSTRAINT fk_riverriver FOREIGN KEY (river) REFERENCES public.river(name);
-ALTER TABLE public.river ADD CONSTRAINT fk_riversea FOREIGN KEY (sea) REFERENCES public.sea(name);
-
-
--- public.riveronisland foreign keys
-
-ALTER TABLE public.riveronisland ADD CONSTRAINT fk_islandriver FOREIGN KEY (river) REFERENCES public.river(name);
-ALTER TABLE public.riveronisland ADD CONSTRAINT fk_riveroisland FOREIGN KEY (island) REFERENCES public.island(name);
-
-
--- public.riverthrough foreign keys
-
-ALTER TABLE public.riverthrough ADD CONSTRAINT fk_thlake FOREIGN KEY (lake) REFERENCES public.lake(name);
-ALTER TABLE public.riverthrough ADD CONSTRAINT fk_thriver FOREIGN KEY (river) REFERENCES public.river(name);
+COMMIT;

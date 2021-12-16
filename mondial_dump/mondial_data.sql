@@ -1,3 +1,5 @@
+BEGIN;
+
 INSERT INTO public.airport (iatacode,name,country,city,province,island,latitude,longitude,elevation,gmtoffset) VALUES
 	 ('HEA','Herat','AFG','Herat','Afghanistan',NULL,34.210017,62.2283,977,5),
 	 ('KBL','Kabul Intl','AFG','Kabul','Afghanistan',NULL,34.565853,69.212328,1792,5),
@@ -56312,3 +56314,5 @@ INSERT INTO public.sea (name,area,"depth") VALUES
 	 ('Coral Sea',4070000,7661),
 	 ('Solomon Sea',720000,9140),
 	 ('Tasman Sea',2331000,5200);
+
+COMMIT;

@@ -2,16 +2,24 @@ version: '3.7'
 services:
     postgres:
         image: postgres:13.5
-        restart: always
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: mondial
         ports:
-          - 5438:5432
+          - 5432:5432
         volumes:
-          - ./postgres-data:/var/lib/postgre
+          - data01:/var/lib/postgres
+          # copy the sql script to create datatypes
+          - ./mondial_dump/mondial_datatypes.sql:/docker-entrypoint-initdb.d/a_create_datatypes.sql
           # copy the sql script to create tables
-          - ./mondial_dump/mondial_ddl.sql:/docker-entrypoint-initdb.d/create_tables.sql
+          - ./mondial_dump/mondial_ddl.sql:/docker-entrypoint-initdb.d/b_create_tables.sql
           # copy the sql script to fill tables
-          - ./mondial_dump/mondial_data.sql:/docker-entrypoint-initdb.d/fill_tables.sql
+          - ./mondial_dump/mondial_data.sql:/docker-entrypoint-initdb.d/c_fill_tables.sql
+          # copy the sql script to add fks (after data is present)
+          - ./mondial_dump/mondial_fks.sql:/docker-entrypoint-initdb.d/d_create_fks.sql
+        networks:
+          - default
+volumes:
+  data01:
+    driver: local
